@@ -2,6 +2,7 @@ package com.aduilio.med.entity;
 
 import jakarta.persistence.Embeddable;
 import lombok.AllArgsConstructor;
+import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 
@@ -9,6 +10,7 @@ import lombok.NoArgsConstructor;
  * Represents an address to persist the information.
  */
 @Getter
+@Builder
 @NoArgsConstructor
 @AllArgsConstructor
 @Embeddable
