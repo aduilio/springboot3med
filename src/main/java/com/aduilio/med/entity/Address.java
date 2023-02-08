@@ -9,8 +9,8 @@ import lombok.NoArgsConstructor;
  * Represents an address to persist the information.
  */
 @Getter
-@AllArgsConstructor
 @NoArgsConstructor
+@AllArgsConstructor
 @Embeddable
 public class Address {
 

@@ -17,8 +17,8 @@ import lombok.NoArgsConstructor;
  * Represents a doctor to persist the information.
  */
 @Getter
-@AllArgsConstructor
 @NoArgsConstructor
+@AllArgsConstructor
 @EqualsAndHashCode(of = "id")
 @Table(name = "doctors")
 @Entity(name = "Doctor")
