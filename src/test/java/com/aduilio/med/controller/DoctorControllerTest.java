@@ -1,6 +1,7 @@
 package com.aduilio.med.controller;
 
 import static org.assertj.core.api.Assertions.assertThat;
+import static org.junit.jupiter.api.Assertions.assertThrows;
 import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.Mockito.times;
 import static org.mockito.Mockito.verify;
@@ -16,8 +17,9 @@ import org.mockito.junit.jupiter.MockitoExtension;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 
-import com.aduilio.med.dto.DoctorDto;
+import com.aduilio.med.dto.DoctorCreateDto;
 import com.aduilio.med.entity.Doctor;
+import com.aduilio.med.exception.DoctorNotFoundException;
 import com.aduilio.med.repository.DoctorRepository;
 
 /**
@@ -39,7 +41,7 @@ public class DoctorControllerTest {
         when(mockDoctorRepository.save(any(Doctor.class)))
             .thenReturn(Doctor.builder().id(ID).build());
 
-        ResponseEntity<Doctor> result = doctorController.create(new DoctorDto());
+        ResponseEntity<Doctor> result = doctorController.create(new DoctorCreateDto());
 
         assertThat(result.getStatusCode()).isEqualTo(HttpStatus.CREATED);
         assertThat(result.getBody().getId()).isEqualTo(ID);
@@ -56,6 +58,18 @@ public class DoctorControllerTest {
 
         assertThat(result.getStatusCode()).isEqualTo(HttpStatus.OK);
         assertThat(result.getBody().getId()).isEqualTo(ID);
+
+        verify(mockDoctorRepository, times(1)).findById(ID);
+    }
+
+    @Test
+    void read_withInvalidId_shouldThrowException() {
+        when(mockDoctorRepository.findById(ID))
+            .thenReturn(Optional.empty());
+
+        DoctorNotFoundException response = assertThrows(DoctorNotFoundException.class, () -> doctorController.read(ID));
+
+        assertThat(response.getMessage()).isEqualTo("Doctor " + ID + " not found.");
 
         verify(mockDoctorRepository, times(1)).findById(ID);
     }

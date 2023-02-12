@@ -11,8 +11,9 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.aduilio.med.dto.DoctorDto;
+import com.aduilio.med.dto.DoctorCreateDto;
 import com.aduilio.med.entity.Doctor;
+import com.aduilio.med.exception.DoctorNotFoundException;
 import com.aduilio.med.mapping.DoctorMapper;
 import com.aduilio.med.repository.DoctorRepository;
 
@@ -30,7 +31,7 @@ public class DoctorController {
 
 	@PostMapping
 	@Transactional
-	public ResponseEntity<Doctor> create(@RequestBody @Valid DoctorDto doctorDto) {
+	public ResponseEntity<Doctor> create(@RequestBody @Valid DoctorCreateDto doctorDto) {
 		Doctor doctor = DoctorMapper.INSTANCE.mapDoctorFrom(doctorDto);
 
 		Doctor response = doctorRepository.save(doctor);
@@ -39,8 +40,9 @@ public class DoctorController {
 
 	@GetMapping("/{id}")
 	public ResponseEntity<Doctor> read(@PathVariable String id) {
-		Doctor response = doctorRepository.findById(id).get();
-
-		return ResponseEntity.ok(response);
+		Doctor doctor = doctorRepository.findById(id)
+            .orElseThrow(() -> new DoctorNotFoundException(id));
+        
+		return ResponseEntity.ok(doctor);
 	}
 }
