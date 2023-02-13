@@ -3,7 +3,7 @@ package com.aduilio.med.mapping;
 import org.mapstruct.Mapper;
 import org.mapstruct.factory.Mappers;
 
-import com.aduilio.med.dto.DoctorDto;
+import com.aduilio.med.dto.DoctorCreateDto;
 import com.aduilio.med.entity.Doctor;
 
 /**
@@ -21,5 +21,5 @@ public interface DoctorMapper {
 	 *
 	 * @return Doctor
 	 */
-	Doctor mapDoctorFrom(DoctorDto doctorDto);
+	Doctor mapDoctorFrom(DoctorCreateDto doctorCreateDto);
 }

@@ -6,8 +6,8 @@ import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.junit.jupiter.MockitoExtension;
 
-import com.aduilio.med.dto.AddressDto;
-import com.aduilio.med.dto.DoctorDto;
+import com.aduilio.med.dto.AddressCreateDto;
+import com.aduilio.med.dto.DoctorCreateDto;
 import com.aduilio.med.entity.Doctor;
 import com.aduilio.med.entity.Specialty;
 
@@ -30,7 +30,7 @@ public class DoctorMapperTest {
 
     @Test
     void mapDoctorFrom_withDoctorDto_shouldReturnDoctor() {
-        AddressDto addressDto = AddressDto.builder()
+        AddressCreateDto addressDto = AddressCreateDto.builder()
             .city(CITY)
             .state(STATE)
             .postalCode(POSTAL_CODE)
@@ -38,7 +38,7 @@ public class DoctorMapperTest {
             .number(NUMBER)
             .build();
 
-        DoctorDto doctorDto = DoctorDto.builder()
+        DoctorCreateDto doctorDto = DoctorCreateDto.builder()
             .name(NAME)
             .crm(CRM)
             .specialty(SPECIALTY)
