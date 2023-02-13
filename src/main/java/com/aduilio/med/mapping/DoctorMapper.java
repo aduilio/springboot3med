@@ -4,6 +4,7 @@ import org.mapstruct.Mapper;
 import org.mapstruct.factory.Mappers;
 
 import com.aduilio.med.dto.DoctorCreateDto;
+import com.aduilio.med.dto.DoctorListDto;
 import com.aduilio.med.entity.Doctor;
 
 /**
@@ -12,14 +13,21 @@ import com.aduilio.med.entity.Doctor;
 @Mapper
 public interface DoctorMapper {
 
-	DoctorMapper INSTANCE = Mappers.getMapper(DoctorMapper.class);
+    DoctorMapper INSTANCE = Mappers.getMapper(DoctorMapper.class);
 
-	/**
-	 * Maps a DoctorDto to Doctor.
-	 *
-	 * @param doctorDto to be mapped
-	 *
-	 * @return Doctor
-	 */
-	Doctor mapDoctorFrom(DoctorCreateDto doctorCreateDto);
+    /**
+     * Maps a DoctorDto to Doctor.
+     *
+     * @param doctorDto to be mapped
+     * @return Doctor
+     */
+    Doctor mapDoctorFrom(DoctorCreateDto doctorCreateDto);
+
+    /**
+     * Maps a Doctor to DoctorListDto.
+     * 
+     * @param doctor to be mapped
+     * @return DoctorListDto
+     */
+    DoctorListDto mapDoctorListDtoFrom(Doctor doctor);
 }

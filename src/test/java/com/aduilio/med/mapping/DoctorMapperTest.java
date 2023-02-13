@@ -8,6 +8,7 @@ import org.mockito.junit.jupiter.MockitoExtension;
 
 import com.aduilio.med.dto.AddressCreateDto;
 import com.aduilio.med.dto.DoctorCreateDto;
+import com.aduilio.med.dto.DoctorListDto;
 import com.aduilio.med.entity.Doctor;
 import com.aduilio.med.entity.Specialty;
 
@@ -17,6 +18,7 @@ import com.aduilio.med.entity.Specialty;
 @ExtendWith(MockitoExtension.class)
 public class DoctorMapperTest {
 
+    private static final String ID = "id";
     private static final String NAME = "name";
     private static final String CRM = "crm";
     private static final Specialty SPECIALTY = Specialty.CARDIOLOGY;
@@ -59,5 +61,24 @@ public class DoctorMapperTest {
         assertEquals(result.getAddress().getPostalCode(), POSTAL_CODE);
         assertEquals(result.getAddress().getStreet(), STREET);
         assertEquals(result.getAddress().getNumber(), NUMBER);
+    }
+
+    @Test
+    void mapDoctorListDtoFrom_withDoctor_shouldReturnDoctorListDto() {
+        Doctor doctor = Doctor.builder()
+            .id(ID)
+            .name(NAME)
+            .crm(CRM)
+            .specialty(SPECIALTY)
+            .email(EMAIL)
+            .phone(PHONE)
+            .build();
+
+        DoctorListDto result = DoctorMapper.INSTANCE.mapDoctorListDtoFrom(doctor);
+
+        assertEquals(result.getId(), ID);
+        assertEquals(result.getName(), NAME);
+        assertEquals(result.getCrm(), CRM);
+        assertEquals(result.getSpecialty(), SPECIALTY);
     }
 }

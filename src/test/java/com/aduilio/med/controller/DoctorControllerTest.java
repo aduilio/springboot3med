@@ -7,6 +7,7 @@ import static org.mockito.Mockito.times;
 import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
 
+import java.util.Arrays;
 import java.util.Optional;
 
 import org.junit.jupiter.api.Test;
@@ -14,10 +15,15 @@ import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageImpl;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 
 import com.aduilio.med.dto.DoctorCreateDto;
+import com.aduilio.med.dto.DoctorListDto;
 import com.aduilio.med.entity.Doctor;
 import com.aduilio.med.exception.DoctorNotFoundException;
 import com.aduilio.med.repository.DoctorRepository;
@@ -27,7 +33,7 @@ import com.aduilio.med.repository.DoctorRepository;
  */
 @ExtendWith(MockitoExtension.class)
 public class DoctorControllerTest {
-    
+
     private static final String ID = "id";
 
     @Mock
@@ -72,5 +78,20 @@ public class DoctorControllerTest {
         assertThat(response.getMessage()).isEqualTo("Doctor " + ID + " not found.");
 
         verify(mockDoctorRepository, times(1)).findById(ID);
+    }
+
+    @Test
+    void list_withValues_shouldReturnDoctorListDto() {
+        Pageable pageable = PageRequest.of(0, 8);
+        Page<Doctor> page = new PageImpl<>(Arrays.asList(Doctor.builder().id(ID).build()));
+
+        when(mockDoctorRepository.findAll(pageable)).thenReturn(page);
+
+        ResponseEntity<Page<DoctorListDto>> result = doctorController.list(pageable);
+
+        assertThat(result.getStatusCode()).isEqualTo(HttpStatus.OK);
+        assertThat(result.getBody().getContent()).hasSize(1);
+
+        verify(mockDoctorRepository, times(1)).findAll(pageable);
     }
 }
