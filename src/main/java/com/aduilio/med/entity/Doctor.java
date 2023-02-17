@@ -10,14 +10,14 @@ import jakarta.persistence.Id;
 import jakarta.persistence.Table;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
+import lombok.Data;
 import lombok.EqualsAndHashCode;
-import lombok.Getter;
 import lombok.NoArgsConstructor;
 
 /**
  * Represents a doctor to persist the information.
  */
-@Getter
+@Data
 @Builder
 @NoArgsConstructor
 @AllArgsConstructor
@@ -26,18 +26,18 @@ import lombok.NoArgsConstructor;
 @Entity(name = "Doctor")
 public class Doctor {
 
-	@Id
-	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	private String id;
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private String id;
 
-	private String name;
-	private String crm;
-	private String email;
-	private String phone;
+    private String name;
+    private String crm;
+    private String email;
+    private String phone;
 
-	@Enumerated(EnumType.STRING)
-	private Specialty specialty;
+    @Enumerated(EnumType.STRING)
+    private Specialty specialty;
 
-	@Embedded
-	private Address address;
+    @Embedded
+    private Address address;
 }

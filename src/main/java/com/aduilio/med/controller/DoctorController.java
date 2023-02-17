@@ -8,6 +8,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PatchMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -16,6 +17,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.aduilio.med.dto.DoctorCreateDto;
 import com.aduilio.med.dto.DoctorListDto;
+import com.aduilio.med.dto.DoctorUpdateDto;
 import com.aduilio.med.entity.Doctor;
 import com.aduilio.med.exception.DoctorNotFoundException;
 import com.aduilio.med.mapping.DoctorMapper;
@@ -44,9 +46,7 @@ public class DoctorController {
 
     @GetMapping("/{id}")
     public ResponseEntity<Doctor> read(@PathVariable String id) {
-        Doctor doctor = doctorRepository.findById(id).orElseThrow(() -> new DoctorNotFoundException(id));
-
-        return ResponseEntity.ok(doctor);
+        return ResponseEntity.ok(findDoctor(id));
     }
 
     @GetMapping
@@ -55,5 +55,16 @@ public class DoctorController {
                 .map(DoctorMapper.INSTANCE::mapDoctorListDtoFrom);
 
         return ResponseEntity.ok(result);
+    }
+
+    @PatchMapping("/{id}")
+    @Transactional
+    public void update(@PathVariable String id, @RequestBody @Valid DoctorUpdateDto doctorDto) {
+        Doctor doctor = doctorRepository.getReferenceById(id);
+        DoctorMapper.INSTANCE.mapDoctorFrom(doctorDto, doctor);
+    }
+
+    private Doctor findDoctor(String id) {
+        return doctorRepository.findById(id).orElseThrow(() -> new DoctorNotFoundException(id));
     }
 }

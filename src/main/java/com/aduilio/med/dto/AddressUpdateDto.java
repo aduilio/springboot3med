@@ -7,26 +7,17 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 
 /**
- * Represents an address for creating information.
+ * Represents an address for updating information.
  */
 @Data
 @Builder
 @NoArgsConstructor
 @AllArgsConstructor
-public class AddressCreateDto {
+public class AddressUpdateDto {
 
-	@NotBlank(message = "{address.city.blank}")
 	private String city;
-
-	@NotBlank(message = "{address.state.blank}")
 	private String state;
-
-	@NotBlank(message = "{address.postalCode.blank}")
 	private String postalCode;
-
-	@NotBlank(message = "{address.street.blank}")
 	private String street;
-
-	@NotBlank(message = "{address.number.blank}")
 	private String number;
 }
