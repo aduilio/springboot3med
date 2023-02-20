@@ -1,6 +1,5 @@
 package com.aduilio.med.dto;
 
-import jakarta.validation.constraints.NotBlank;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
@@ -15,9 +14,9 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor
 public class AddressUpdateDto {
 
-	private String city;
-	private String state;
-	private String postalCode;
-	private String street;
-	private String number;
+    private String city;
+    private String state;
+    private String postalCode;
+    private String street;
+    private String number;
 }

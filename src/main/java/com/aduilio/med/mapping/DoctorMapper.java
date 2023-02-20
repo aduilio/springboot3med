@@ -7,6 +7,7 @@ import org.mapstruct.factory.Mappers;
 
 import com.aduilio.med.dto.DoctorCreateDto;
 import com.aduilio.med.dto.DoctorListDto;
+import com.aduilio.med.dto.DoctorReadDto;
 import com.aduilio.med.dto.DoctorUpdateDto;
 import com.aduilio.med.entity.Doctor;
 
@@ -42,4 +43,12 @@ public interface DoctorMapper {
      * @return DoctorListDto
      */
     DoctorListDto mapDoctorListDtoFrom(Doctor doctor);
+
+    /**
+     * Maps a DoctorReadDto.
+     * 
+     * @param doctor to be mapped
+     * @retur DoctorReadDto
+     */
+    DoctorReadDto mapDoctorReadDtoFrom(Doctor doctor);
 }
