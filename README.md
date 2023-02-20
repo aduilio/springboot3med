@@ -6,4 +6,4 @@
   - Lombok: to avoid bolerplate code
   - MapStruct: to map the DTO and entity classes
   - Flyway: database migration
-  - H2:
+  - H2: in memory database
