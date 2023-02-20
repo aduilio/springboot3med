@@ -34,6 +34,8 @@ public class Doctor {
     private String crm;
     private String email;
     private String phone;
+    @Builder.Default
+    private boolean active = true;
 
     @Enumerated(EnumType.STRING)
     private Specialty specialty;

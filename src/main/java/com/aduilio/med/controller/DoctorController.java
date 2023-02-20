@@ -7,6 +7,7 @@ import org.springframework.data.web.PageableDefault;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.transaction.annotation.Transactional;
+import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PatchMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -23,6 +24,7 @@ import com.aduilio.med.exception.DoctorNotFoundException;
 import com.aduilio.med.mapping.DoctorMapper;
 import com.aduilio.med.repository.DoctorRepository;
 
+import jakarta.persistence.EntityNotFoundException;
 import jakarta.validation.Valid;
 
 /**
@@ -51,7 +53,7 @@ public class DoctorController {
 
     @GetMapping
     public ResponseEntity<Page<DoctorListDto>> list(@PageableDefault(size = 10, sort = {"name"}) Pageable pageable) {
-        Page<DoctorListDto> result = doctorRepository.findAll(pageable)
+        Page<DoctorListDto> result = doctorRepository.findAllByActiveTrue(pageable)
                 .map(DoctorMapper.INSTANCE::mapDoctorListDtoFrom);
 
         return ResponseEntity.ok(result);
@@ -60,11 +62,26 @@ public class DoctorController {
     @PatchMapping("/{id}")
     @Transactional
     public void update(@PathVariable String id, @RequestBody @Valid DoctorUpdateDto doctorDto) {
-        Doctor doctor = doctorRepository.getReferenceById(id);
+        Doctor doctor = getDoctor(id);
         DoctorMapper.INSTANCE.mapDoctorFrom(doctorDto, doctor);
+    }
+
+    @DeleteMapping("/{id}")
+    @Transactional
+    public void delete(@PathVariable String id) {
+        Doctor doctor = getDoctor(id);
+        doctor.setActive(false);
     }
 
     private Doctor findDoctor(String id) {
         return doctorRepository.findById(id).orElseThrow(() -> new DoctorNotFoundException(id));
+    }
+
+    private Doctor getDoctor(String id) {
+        try {
+            return doctorRepository.getReferenceById(id);
+        } catch (EntityNotFoundException ex) {
+            throw new DoctorNotFoundException(id);
+        }
     }
 }
