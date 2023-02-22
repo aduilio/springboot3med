@@ -8,6 +8,9 @@ import com.fasterxml.jackson.databind.cfg.CoercionAction;
 import com.fasterxml.jackson.databind.cfg.CoercionInputShape;
 import com.fasterxml.jackson.databind.type.LogicalType;
 
+/**
+ * Provides the configuration for ObjetMapper.
+ */
 @Configuration
 public class ObjectMapperConfig {
 
