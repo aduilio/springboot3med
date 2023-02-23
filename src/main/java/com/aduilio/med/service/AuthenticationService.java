@@ -9,7 +9,7 @@ import org.springframework.stereotype.Service;
 import com.aduilio.med.repository.UserRepository;
 
 /**
- * Implements tghe Spring service to validate the user.
+ * Implements the Spring service to validate the user.
  */
 @Service
 public class AuthenticationService implements UserDetailsService {
@@ -19,7 +19,6 @@ public class AuthenticationService implements UserDetailsService {
 
     @Override
     public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
-        userRepository.findByUsername(username);
-        return null;
+        return userRepository.findByUsername(username);
     }
 }
