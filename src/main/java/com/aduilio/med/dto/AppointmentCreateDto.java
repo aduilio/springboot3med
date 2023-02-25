@@ -2,8 +2,6 @@ package com.aduilio.med.dto;
 
 import java.time.LocalDateTime;
 
-import com.fasterxml.jackson.annotation.JsonFormat;
-
 import jakarta.validation.Valid;
 import jakarta.validation.constraints.Future;
 import jakarta.validation.constraints.NotBlank;
@@ -28,7 +26,7 @@ public class AppointmentCreateDto {
 
     @Valid
     @NotNull(message = "{appointment.patient.null}")
-    private AppoitmentPatientDto patient;
+    private AppointmentPatientDto patient;
 
     @NotNull(message = "{appointment.date.blank}")
     @Future(message = "{appointment.date.past}")
@@ -38,7 +36,7 @@ public class AppointmentCreateDto {
     @Builder
     @NoArgsConstructor
     @AllArgsConstructor
-    private static class AppointmentDoctorDto {
+    public static class AppointmentDoctorDto {
 
         @NotNull(message = "{doctor.id.null}")
         private Long id;
@@ -48,7 +46,7 @@ public class AppointmentCreateDto {
     @Builder
     @NoArgsConstructor
     @AllArgsConstructor
-    public static class AppoitmentPatientDto {
+    public static class AppointmentPatientDto {
 
         @NotBlank(message = "{patient.name.blank}")
         private String name;

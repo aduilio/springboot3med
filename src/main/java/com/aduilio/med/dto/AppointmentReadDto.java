@@ -1,5 +1,7 @@
 package com.aduilio.med.dto;
 
+import java.time.LocalDateTime;
+
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
@@ -16,13 +18,14 @@ public class AppointmentReadDto {
 
     private String id;
     private AppointmentDoctorDto doctor;
-    private AppoitmentPatientDto patient;
+    private AppointmentPatientDto patient;
+    private LocalDateTime date;
 
     @Data
     @Builder
     @NoArgsConstructor
     @AllArgsConstructor
-    private static class AppointmentDoctorDto {
+    public static class AppointmentDoctorDto {
 
         private Long id;
     }
@@ -31,7 +34,7 @@ public class AppointmentReadDto {
     @Builder
     @NoArgsConstructor
     @AllArgsConstructor
-    public static class AppoitmentPatientDto {
+    public static class AppointmentPatientDto {
 
         private String name;
         private String phone;

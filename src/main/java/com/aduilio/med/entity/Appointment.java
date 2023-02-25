@@ -26,7 +26,7 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 @AllArgsConstructor
 @EqualsAndHashCode(of = "id")
-@Table(name = "appointment")
+@Table(name = "appointments")
 @Entity(name = "Appointment")
 public class Appointment {
 
@@ -43,7 +43,11 @@ public class Appointment {
     private LocalDateTime date;
 
     @Embeddable
-    private static class Patient {
+    @Data
+    @Builder
+    @NoArgsConstructor
+    @AllArgsConstructor
+    public static class Patient {
 
         @Column(name = "patient_name")
         private String name;
