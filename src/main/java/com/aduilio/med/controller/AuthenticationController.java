@@ -15,6 +15,8 @@ import com.aduilio.med.dto.UserDto;
 import com.aduilio.med.entity.User;
 import com.aduilio.med.service.TokenService;
 
+import io.swagger.v3.oas.annotations.security.SecurityRequirement;
+import io.swagger.v3.oas.annotations.tags.Tag;
 import jakarta.validation.Valid;
 
 /**
@@ -22,6 +24,8 @@ import jakarta.validation.Valid;
  */
 @RestController
 @RequestMapping("login")
+@SecurityRequirement(name = "bearer-key")
+@Tag(name = "Authentication")
 public class AuthenticationController {
 
     @Autowired

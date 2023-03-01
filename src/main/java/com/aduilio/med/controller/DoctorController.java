@@ -27,6 +27,8 @@ import com.aduilio.med.exception.DoctorNotFoundException;
 import com.aduilio.med.mapping.DoctorMapper;
 import com.aduilio.med.repository.DoctorRepository;
 
+import io.swagger.v3.oas.annotations.security.SecurityRequirement;
+import io.swagger.v3.oas.annotations.tags.Tag;
 import jakarta.persistence.EntityNotFoundException;
 import jakarta.validation.Valid;
 
@@ -35,6 +37,8 @@ import jakarta.validation.Valid;
  */
 @RestController
 @RequestMapping("doctors")
+@SecurityRequirement(name = "bearer-key")
+@Tag(name = "Doctors")
 public class DoctorController {
 
     @Autowired
