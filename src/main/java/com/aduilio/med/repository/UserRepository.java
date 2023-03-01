@@ -9,5 +9,11 @@ import com.aduilio.med.entity.User;
  */
 public interface UserRepository extends JpaRepository<User, Long> {
 
+    /**
+     * Returns an user by username.
+     * 
+     * @param username the username
+     * @return User
+     */
     public User findByUsername(String username);
 }

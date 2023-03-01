@@ -6,4 +6,4 @@ create table users(
 	primary key(id)
 );
 
-insert into users values (1, 'user', '$2a$12$WNVPP0eBtdmZmK/aCP.feuNMBRYQX9t4HMG1WN21ngv0b/tYQmEfe');
+insert into users (login_user, login_code) values ('user', '$2a$12$WNVPP0eBtdmZmK/aCP.feuNMBRYQX9t4HMG1WN21ngv0b/tYQmEfe');
