@@ -1,5 +1,7 @@
 package com.aduilio.med.controller;
 
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
@@ -16,6 +18,7 @@ import com.aduilio.med.dto.AppointmentCreateDto;
 import com.aduilio.med.dto.AppointmentReadDto;
 import com.aduilio.med.mapping.AppointmentMapper;
 import com.aduilio.med.service.AppointmentService;
+import com.aduilio.med.validator.AppointmentValidator;
 
 import jakarta.validation.Valid;
 
@@ -26,11 +29,16 @@ public class AppointmentController {
     @Autowired
     private AppointmentService appointmentService;
 
+    @Autowired
+    private List<AppointmentValidator> validators;
+
     private AppointmentMapper appointmentMapper = AppointmentMapper.INSTANCE;
 
     @PostMapping
     @Transactional
     public ResponseEntity<AppointmentReadDto> create(@RequestBody @Valid AppointmentCreateDto appointmentDto) {
+        validators.forEach(validator -> validator.validate(appointmentDto));
+        
         var appointment = appointmentService.schedule(appointmentDto);
         var response = appointmentMapper.mapAppointmentReadDtoFrom(appointment);
         return ResponseEntity.ok(response);

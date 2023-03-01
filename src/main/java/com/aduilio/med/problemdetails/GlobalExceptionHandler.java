@@ -8,9 +8,12 @@ import org.springframework.http.HttpStatusCode;
 import org.springframework.http.ProblemDetail;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.MethodArgumentNotValidException;
+import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.RestControllerAdvice;
 import org.springframework.web.context.request.WebRequest;
 import org.springframework.web.servlet.mvc.method.annotation.ResponseEntityExceptionHandler;
+
+import com.aduilio.med.exception.ServiceException;
 
 /**
  * To enable RFC 7807 error responses.
@@ -37,5 +40,11 @@ public class GlobalExceptionHandler extends ResponseEntityExceptionHandler {
         problem.setDetail(CONSTRAINT_VIOLATION);
 
         return new ResponseEntity<>(exception.getBody(), headers, status);
+    }
+
+    @ExceptionHandler(ServiceException.class)
+    public ResponseEntity<Object> handleRuntimeException(ServiceException exception) {
+        var problemDetails = ProblemDetail.forStatusAndDetail(exception.getStatus(), exception.getMessage());
+        return new ResponseEntity<>(problemDetails, exception.getStatus());
     }
 }
