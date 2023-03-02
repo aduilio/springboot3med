@@ -1,5 +1,6 @@
 package com.aduilio.med.controller;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -38,7 +39,7 @@ public class AppointmentController {
     private AppointmentRepository appointmentRepository;
 
     @Autowired
-    private List<AppointmentValidator> validators;
+    private List<AppointmentValidator> validators = new ArrayList<>();
 
     private AppointmentMapper appointmentMapper = AppointmentMapper.INSTANCE;
 
